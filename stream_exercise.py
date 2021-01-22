@@ -63,5 +63,24 @@ class StreamProcessor(object):
         #
         # digits = self._stream.read(2)
 
+        while True:
+            digits = self._stream.read(2)
+            if len(digits) < 2:
+                break                   # empty or incomplete stream
+
+            try:
+                total += int(digits)
+            except ValueError as e:
+                print(e)
+                break                   # non numeric
+
+            count += 1
+
+            if count >= 10:
+                break                   # more than 10
+
+            if total >= 200:
+                break                   # more than 200
+
 
         return count
